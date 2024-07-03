@@ -26,3 +26,11 @@ TaskRoutes.get('/:id', isAuthenticated, async (req, res) => {
 
   return res.json(task);
 });
+
+TaskRoutes.delete('/:id', isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+
+  await taskUseCase.delete({ id });
+
+  return res.status(201).send();
+});

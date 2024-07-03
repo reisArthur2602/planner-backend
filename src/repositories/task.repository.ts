@@ -24,6 +24,9 @@ class TaskRepositoryPrisma implements ITaskRepository {
     });
   }
 
+  async delete(data: Pick<Task, 'id'>): Promise<void> {
+    await db.task.delete({ where: { id: data.id } });
+  }
 }
 
 export { TaskRepositoryPrisma };

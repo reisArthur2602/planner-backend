@@ -30,6 +30,12 @@ class TaskUseCase {
     if (!task) throw new NotFoundError('A tarefa não foi encontrada');
     return task;
   }
+
+  async delete(data: Pick<Task, 'id'>): Promise<void> {
+    await this.taskRepository.delete(data).catch(() => {
+      throw new NotFoundError('A tarefa não foi encontrada');
+    });
+  }
 }
 
 export { TaskUseCase };

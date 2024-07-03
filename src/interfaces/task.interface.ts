@@ -20,4 +20,5 @@ export interface ITaskRepository {
   create(data: TaskCreate): Promise<void>;
   findByDate(data: Pick<Task, 'when'>): Promise<Pick<Task, 'id'> | null>;
   findById(data: Pick<Task, 'id'>): Promise<Task | null>;
+  delete(data: Pick<Task, 'id'>): Promise<void>;
 }
