@@ -8,6 +8,6 @@ export type UserCreate = {
 };
 
 export interface IUserRepository {
-  create(data: UserCreate): Promise<Pick<User, 'id'>>;
-  findByEmailOrId(data: Partial<User>): Promise<Pick<User, 'id'> | null>;
+  create(data: UserCreate): Promise<User>;
+  findByEmailOrId(data: Partial<User>): Promise<User | null>;
 }

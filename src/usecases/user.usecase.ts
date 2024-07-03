@@ -16,7 +16,7 @@ class UserUseCase {
   }
   private userRepository: IUserRepository;
 
-  async create(data: UserCreate): Promise<Pick<User, 'id'>> {
+  async create(data: UserCreate): Promise<User> {
     const user = await this.userRepository.findByEmailOrId(data);
     if (user)
       throw new ConflictError(
@@ -25,13 +25,13 @@ class UserUseCase {
     return await this.userRepository.create(data);
   }
 
-  async auth(data: UserCreate): Promise<Pick<User, 'id'>> {
+  async auth(data: UserCreate): Promise<User> {
     const user = await this.userRepository.findByEmailOrId(data);
     if (!user) throw new NotFoundError('O Usuário não foi encontrado ');
     return user;
   }
 
-  async details(data: Pick<User, 'id'>): Promise<Pick<User, 'id'>> {
+  async details(data: Pick<User, 'id'>): Promise<User> {
     const user = await this.userRepository.findByEmailOrId(data);
     if (!user) throw new NotFoundError('O Usuário não foi encontrado');
     return user;
