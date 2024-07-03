@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from 'express';
 import { AplicationError } from '../helpers/error';
 
-export const erroMiddlaware = (
+export const hasError = (
   error: Error & Partial<AplicationError>,
   req: Request,
   res: Response,
