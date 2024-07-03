@@ -30,6 +30,12 @@ class UserUseCase {
     if (!user) throw new NotFoundError('O Usuário não foi encontrado ');
     return user;
   }
+
+  async details(data: Pick<User, 'id'>): Promise<User> {
+    const user = await this.userRepository.findByEmailOrId(data);
+    if (!user) throw new NotFoundError('O Usuário não foi encontrado');
+    return user;
+  }
 }
 
 export { UserUseCase };
