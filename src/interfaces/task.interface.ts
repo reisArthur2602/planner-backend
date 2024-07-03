@@ -16,4 +16,5 @@ export type TaskCreate = {
 
 export interface ITaskRepository {
   create(data: TaskCreate): Promise<void>;
+  findByDate(data: Pick<Task, 'when'>): Promise<Pick<Task, 'id'> | null>;
 }
