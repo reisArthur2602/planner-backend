@@ -7,9 +7,8 @@ export const TaskRoutes = Router();
 const taskUseCase = new TaskUseCase();
 
 TaskRoutes.post('/', isAuthenticated, async (req, res) => {
-  
   const { title, description, when } = req.body;
-  
+
   if (!title || !description || !when)
     throw new BadRequestError('Preencha os dados corretamente');
 
@@ -18,4 +17,12 @@ TaskRoutes.post('/', isAuthenticated, async (req, res) => {
   await taskUseCase.create({ title, description, when, user_id });
 
   return res.status(201).send();
+});
+
+TaskRoutes.get('/:id', isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+
+  const task = await taskUseCase.find({ id });
+
+  return res.json(task);
 });

@@ -1,6 +1,10 @@
 import { db } from '../database/prisma';
-import { Task } from '@prisma/client';
-import { ITaskRepository, TaskCreate } from '../interfaces/task.interface';
+
+import {
+  ITaskRepository,
+  Task,
+  TaskCreate,
+} from '../interfaces/task.interface';
 
 class TaskRepositoryPrisma implements ITaskRepository {
   async create(data: TaskCreate): Promise<void> {
@@ -13,6 +17,13 @@ class TaskRepositoryPrisma implements ITaskRepository {
       select: { id: true },
     });
   }
+
+  async findById(data: Pick<Task, 'id'>): Promise<Task | null> {
+    return await db.task.findFirst({
+      where: { id: data.id },
+    });
+  }
+
 }
 
 export { TaskRepositoryPrisma };

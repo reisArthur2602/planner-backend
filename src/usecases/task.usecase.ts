@@ -1,7 +1,11 @@
-import { ITaskRepository, TaskCreate } from '../interfaces/task.interface';
+import {
+  ITaskRepository,
+  Task,
+  TaskCreate,
+} from '../interfaces/task.interface';
 import { TaskRepositoryPrisma } from '../repositories/task.repository';
 import { isPast } from 'date-fns';
-import { ConflictError } from '../helpers/error';
+import { ConflictError, NotFoundError } from '../helpers/error';
 
 class TaskUseCase {
   constructor() {
@@ -18,6 +22,13 @@ class TaskUseCase {
       throw new ConflictError('Já existe uma tarefa neste dia e horário');
 
     await this.taskRepository.create(data);
+  }
+
+  async find(data: Pick<Task, 'id'>): Promise<Task> {
+    const task = await this.taskRepository.findById(data);
+
+    if (!task) throw new NotFoundError('A tarefa não foi encontrada');
+    return task;
   }
 }
 
