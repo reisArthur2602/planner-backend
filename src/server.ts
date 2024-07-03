@@ -7,8 +7,8 @@ import { UserRoutes } from './routes/user.routes';
 const app = express();
 
 app.use(express.json());
-app.use(hasError);
 app.use('/user', UserRoutes);
+app.use(hasError);
 
 app.listen(process.env.PORT, () =>
   console.log(`Server running on PORT ${process.env.PORT}`)

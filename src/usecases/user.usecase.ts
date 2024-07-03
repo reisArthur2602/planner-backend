@@ -1,3 +1,4 @@
+import { ConflictError } from '../helpers/error';
 import {
   IUserRepository,
   User,
@@ -11,6 +12,16 @@ class UserUseCase {
   }
   private userRepository: IUserRepository;
 
+  async create(data: UserCreate): Promise<User> {
+    const user = await this.userRepository.findByEmail(data);
+
+    if (user)
+      throw new ConflictError(
+        'O email informado já está associado a uma conta'
+      );
+
+    return await this.userRepository.create(data);
+  }
 }
 
 export { UserUseCase };

@@ -23,3 +23,8 @@ export class UnauthorizedError extends AplicationError {
     super(message, 401);
   }
 }
+export class ConflictError extends AplicationError {
+  constructor(message: string) {
+    super(message, 409);
+  }
+}
