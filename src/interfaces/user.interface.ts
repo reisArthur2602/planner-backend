@@ -9,5 +9,5 @@ export type UserCreate = {
 
 export interface IUserRepository {
   create(data: UserCreate): Promise<User>;
-  findByEmail(data: UserCreate): Promise<User | null>;
+  findByEmailOrId(data: Partial<User>): Promise<User | null>;
 }
