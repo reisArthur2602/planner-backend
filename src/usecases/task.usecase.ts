@@ -72,11 +72,16 @@ class TaskUseCase {
   async getAll(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     return await this.taskRepository.getAll(data);
   }
+
   async getToday(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     return await this.taskRepository.getToday(data);
   }
+
   async getWeek(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     return await this.taskRepository.getWeek(data);
+  }
+  async getMonth(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
+    return await this.taskRepository.getMonth(data);
   }
 }
 
