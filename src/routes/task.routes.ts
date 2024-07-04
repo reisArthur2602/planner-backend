@@ -71,3 +71,11 @@ TaskRoutes.put('/:id', isAuthenticated, async (req, res) => {
 
   return res.status(200).send();
 });
+
+TaskRoutes.patch('/:id/:done', isAuthenticated, async (req, res) => {
+  const { id, done } = req.params;
+
+  await taskUseCase.done({ id, done: done === 'true' ? true : false });
+
+  return res.status(200).send();
+});

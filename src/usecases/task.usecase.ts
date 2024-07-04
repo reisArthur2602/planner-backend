@@ -43,7 +43,6 @@ class TaskUseCase {
   }
 
   async update(data: Omit<Task, 'done'>): Promise<void> {
-
     if (isPast(data.when))
       throw new ConflictError('Escolha uma data e hora no futuro');
 
@@ -61,6 +60,12 @@ class TaskUseCase {
       description: data.description,
       title: data.title,
       when: data.when,
+    });
+  }
+
+  async done(data: Pick<Task, 'id' | 'done'>): Promise<void> {
+    await this.taskRepository.done(data).catch(() => {
+      throw new NotFoundError('A tarefa não foi encontrada');
     });
   }
 }

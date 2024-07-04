@@ -49,6 +49,13 @@ class TaskRepositoryPrisma implements ITaskRepository {
     const { id, description, title, when } = data;
     await db.task.update({ where: { id }, data: { description, title, when } });
   }
+
+  async done(data: Pick<Task, 'id' | 'done'>): Promise<void> {
+    await db.task.update({
+      where: { id: data.id },
+      data: { done: data.done },
+    });
+  }
 }
 
 export { TaskRepositoryPrisma };

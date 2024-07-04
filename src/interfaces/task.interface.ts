@@ -29,4 +29,5 @@ export interface ITaskRepository {
   findWithoutId(data:Pick<Task, 'when' | "user_id"|"id">): Promise<Pick<Task, 'id'> | null>;
   delete(data:Pick<Task, 'id'>): Promise<void>;
   update(data:Omit<Task,"done"|"user_id">): Promise<void>;
+  done(data:Pick<Task, 'id' | "done">): Promise<void>;
 }
