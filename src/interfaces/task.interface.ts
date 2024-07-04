@@ -15,10 +15,18 @@ export type TaskCreate = {
 };
 
 
+export type UpdateTask = {
+  id: string;
+  title: string;
+  description: string;
+  when: Date;
+};
 
 export interface ITaskRepository {
-  create(data: TaskCreate): Promise<void>;
-  findByDate(data: Pick<Task, 'when'>): Promise<Pick<Task, 'id'> | null>;
-  findById(data: Pick<Task, 'id'>): Promise<Task | null>;
-  delete(data: Pick<Task, 'id'>): Promise<void>;
+  create(data:TaskCreate): Promise<void>;
+  findByDate(data:Pick<Task, 'when' | "user_id">): Promise<Pick<Task, 'id'> | null>;
+  findById(data:Pick<Task, 'id'>): Promise<Task | null>;
+  findWithoutId(data:Pick<Task, 'when' | "user_id"|"id">): Promise<Pick<Task, 'id'> | null>;
+  delete(data:Pick<Task, 'id'>): Promise<void>;
+  update(data:Omit<Task,"done"|"user_id">): Promise<void>;
 }

@@ -2,6 +2,7 @@ import {
   ITaskRepository,
   Task,
   TaskCreate,
+  UpdateTask,
 } from '../interfaces/task.interface';
 import { TaskRepositoryPrisma } from '../repositories/task.repository';
 import { isPast } from 'date-fns';
@@ -17,7 +18,11 @@ class TaskUseCase {
     if (isPast(data.when))
       throw new ConflictError('Escolha uma data e hora no futuro');
 
-    const task = await this.taskRepository.findByDate({ when: data.when });
+    const task = await this.taskRepository.findByDate({
+      when: data.when,
+      user_id: data.user_id,
+    });
+
     if (task)
       throw new ConflictError('Já existe uma tarefa neste dia e horário');
 
@@ -34,6 +39,28 @@ class TaskUseCase {
   async delete(data: Pick<Task, 'id'>): Promise<void> {
     await this.taskRepository.delete(data).catch(() => {
       throw new NotFoundError('A tarefa não foi encontrada');
+    });
+  }
+
+  async update(data: Omit<Task, 'done'>): Promise<void> {
+
+    if (isPast(data.when))
+      throw new ConflictError('Escolha uma data e hora no futuro');
+
+    const task = await this.taskRepository.findWithoutId({
+      id: data.id,
+      when: data.when,
+      user_id: data.user_id,
+    });
+
+    if (task)
+      throw new ConflictError('Já existe uma tarefa neste dia e horário');
+
+    await this.taskRepository.update({
+      id: data.id,
+      description: data.description,
+      title: data.title,
+      when: data.when,
     });
   }
 }

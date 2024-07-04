@@ -59,7 +59,15 @@ TaskRoutes.put('/:id', isAuthenticated, async (req, res) => {
       'Parece que a data inserida é inválida. Por favor, verifique e tente novamente.'
     );
 
-  await taskUseCase.update({ id, title, description, when: new Date(when) });
+  const user_id = req.userId;
+
+  await taskUseCase.update({
+    id,
+    title,
+    description,
+    when: new Date(when),
+    user_id,
+  });
 
   return res.status(200).send();
 });
