@@ -36,13 +36,17 @@ TaskRoutes.get('/all', isAuthenticated, async (req, res) => {
   return res.json(task);
 });
 
-
 TaskRoutes.get('/today', isAuthenticated, async (req, res) => {
   const user_id = req.userId;
   const task = await taskUseCase.getToday({ user_id });
   return res.json(task);
 });
 
+TaskRoutes.get('/week', isAuthenticated, async (req, res) => {
+  const user_id = req.userId;
+  const task = await taskUseCase.getWeek({ user_id });
+  return res.json(task);
+});
 
 TaskRoutes.get('/:id', isAuthenticated, async (req, res) => {
   const { id } = req.params;
@@ -93,5 +97,3 @@ TaskRoutes.patch('/:id/:done', isAuthenticated, async (req, res) => {
 
   return res.status(200).send();
 });
-
-

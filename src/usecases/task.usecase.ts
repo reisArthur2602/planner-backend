@@ -75,6 +75,9 @@ class TaskUseCase {
   async getToday(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     return await this.taskRepository.getToday(data);
   }
+  async getWeek(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
+    return await this.taskRepository.getWeek(data);
+  }
 }
 
 export { TaskUseCase };

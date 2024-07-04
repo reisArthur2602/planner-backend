@@ -35,4 +35,5 @@ export interface ITaskRepository {
   done(data: Pick<Task, 'id' | 'done'>): Promise<void>;
   getAll(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
   getToday(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
+  getWeek(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
 }
