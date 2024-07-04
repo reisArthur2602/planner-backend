@@ -1,8 +1,10 @@
 import {
   endOfDay,
+  endOfMonth,
   endOfWeek,
   endOfYear,
   startOfDay,
+  startOfMonth,
   startOfWeek,
   startOfYear,
 } from 'date-fns';
@@ -108,7 +110,26 @@ class TaskRepositoryPrisma implements ITaskRepository {
       orderBy: { when: 'asc' },
     });
   }
+
   async getMonth(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
+    const current = new Date();
+    return await db.task.findMany({
+      where: {
+        AND: [
+          { user_id: data.user_id },
+          {
+            when: {
+              gte: startOfMonth(current) && current,
+              lte: endOfMonth(current),
+            },
+          },
+        ],
+      },
+      orderBy: { when: 'asc' },
+    });
+  }
+
+  async getYear(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     const current = new Date();
     return await db.task.findMany({
       where: {

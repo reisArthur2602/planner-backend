@@ -47,9 +47,15 @@ TaskRoutes.get('/week', isAuthenticated, async (req, res) => {
   const task = await taskUseCase.getWeek({ user_id });
   return res.json(task);
 });
+
 TaskRoutes.get('/month', isAuthenticated, async (req, res) => {
   const user_id = req.userId;
   const task = await taskUseCase.getMonth({ user_id });
+  return res.json(task);
+});
+TaskRoutes.get('/year', isAuthenticated, async (req, res) => {
+  const user_id = req.userId;
+  const task = await taskUseCase.getYear({ user_id });
   return res.json(task);
 });
 
