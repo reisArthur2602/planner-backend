@@ -30,6 +30,12 @@ TaskRoutes.post('/', isAuthenticated, async (req, res) => {
   return res.status(201).send();
 });
 
+TaskRoutes.get('/all', isAuthenticated, async (req, res) => {
+  const user_id = req.userId;
+  const task = await taskUseCase.getAll({ user_id });
+  return res.json(task);
+});
+
 TaskRoutes.get('/:id', isAuthenticated, async (req, res) => {
   const { id } = req.params;
 
@@ -79,3 +85,5 @@ TaskRoutes.patch('/:id/:done', isAuthenticated, async (req, res) => {
 
   return res.status(200).send();
 });
+
+

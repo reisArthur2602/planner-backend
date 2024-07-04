@@ -14,7 +14,6 @@ export type TaskCreate = {
   user_id: string;
 };
 
-
 export type UpdateTask = {
   id: string;
   title: string;
@@ -23,11 +22,16 @@ export type UpdateTask = {
 };
 
 export interface ITaskRepository {
-  create(data:TaskCreate): Promise<void>;
-  findByDate(data:Pick<Task, 'when' | "user_id">): Promise<Pick<Task, 'id'> | null>;
-  findById(data:Pick<Task, 'id'>): Promise<Task | null>;
-  findWithoutId(data:Pick<Task, 'when' | "user_id"|"id">): Promise<Pick<Task, 'id'> | null>;
-  delete(data:Pick<Task, 'id'>): Promise<void>;
-  update(data:Omit<Task,"done"|"user_id">): Promise<void>;
-  done(data:Pick<Task, 'id' | "done">): Promise<void>;
+  create(data: TaskCreate): Promise<void>;
+  findByDate(
+    data: Pick<Task, 'when' | 'user_id'>
+  ): Promise<Pick<Task, 'id'> | null>;
+  findById(data: Pick<Task, 'id'>): Promise<Task | null>;
+  findWithoutId(
+    data: Pick<Task, 'when' | 'user_id' | 'id'>
+  ): Promise<Pick<Task, 'id'> | null>;
+  delete(data: Pick<Task, 'id'>): Promise<void>;
+  update(data: Omit<Task, 'done' | 'user_id'>): Promise<void>;
+  done(data: Pick<Task, 'id' | 'done'>): Promise<void>;
+  getAll(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
 }

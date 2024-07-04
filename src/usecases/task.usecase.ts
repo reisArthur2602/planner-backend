@@ -68,6 +68,10 @@ class TaskUseCase {
       throw new NotFoundError('A tarefa não foi encontrada');
     });
   }
+
+  async getAll(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
+    return await this.taskRepository.getAll(data);
+  }
 }
 
 export { TaskUseCase };
