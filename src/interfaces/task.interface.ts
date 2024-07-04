@@ -34,4 +34,5 @@ export interface ITaskRepository {
   update(data: Omit<Task, 'done' | 'user_id'>): Promise<void>;
   done(data: Pick<Task, 'id' | 'done'>): Promise<void>;
   getAll(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
+  getToday(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
 }

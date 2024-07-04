@@ -1,3 +1,4 @@
+import { endOfDay, startOfDay } from 'date-fns';
 import { db } from '../database/prisma';
 
 import {
@@ -61,6 +62,24 @@ class TaskRepositoryPrisma implements ITaskRepository {
     const current = new Date();
     return await db.task.findMany({
       where: { AND: [{ user_id: data.user_id }, { when: { gte: current } }] },
+      orderBy: { when: 'asc' },
+    });
+  }
+
+  async getToday(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
+    const current = new Date();
+    return await db.task.findMany({
+      where: {
+        AND: [
+          { user_id: data.user_id },
+          {
+            when: {
+              gte: startOfDay(current) && current,
+              lte: endOfDay(current),
+            },
+          },
+        ],
+      },
       orderBy: { when: 'asc' },
     });
   }
