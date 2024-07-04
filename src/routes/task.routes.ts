@@ -58,6 +58,11 @@ TaskRoutes.get('/year', isAuthenticated, async (req, res) => {
   const task = await taskUseCase.getYear({ user_id });
   return res.json(task);
 });
+TaskRoutes.get('/late', isAuthenticated, async (req, res) => {
+  const user_id = req.userId;
+  const task = await taskUseCase.late({ user_id });
+  return res.json(task);
+});
 
 TaskRoutes.get('/:id', isAuthenticated, async (req, res) => {
   const { id } = req.params;

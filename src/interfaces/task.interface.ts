@@ -38,4 +38,5 @@ export interface ITaskRepository {
   getWeek(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
   getMonth(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
   getYear(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
+  late(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
 }

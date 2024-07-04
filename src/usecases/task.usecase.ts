@@ -86,6 +86,9 @@ class TaskUseCase {
   async getYear(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     return await this.taskRepository.getYear(data);
   }
+  async late(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
+    return await this.taskRepository.late(data);
+  }
 }
 
 export { TaskUseCase };
