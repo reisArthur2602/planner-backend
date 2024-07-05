@@ -56,8 +56,11 @@ class TaskRepositoryPrisma implements ITaskRepository {
   }
 
   async update(data: Omit<Task, 'done' | 'user_id'>): Promise<void> {
-    const { id, description, title, when } = data;
-    await db.task.update({ where: { id }, data: { description, title, when } });
+    const { id, description, title, when, type } = data;
+    await db.task.update({
+      where: { id },
+      data: { description, title, when, type },
+    });
   }
 
   async done(data: Pick<Task, 'id' | 'done'>): Promise<void> {
@@ -143,7 +146,7 @@ class TaskRepositoryPrisma implements ITaskRepository {
       orderBy: { when: 'asc' },
     });
   }
-  
+
   async getYear(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     const current = new Date();
     return await db.task.findMany({

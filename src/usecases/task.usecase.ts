@@ -16,7 +16,9 @@ class TaskUseCase {
 
   async create(data: TaskCreate): Promise<void> {
     if (isPast(data.when))
-      throw new ConflictError('Por favor, selecione uma data e hora futuras para sua tarefa.');
+      throw new ConflictError(
+        'Por favor, selecione uma data e hora futuras para sua tarefa.'
+      );
 
     const task = await this.taskRepository.findByDate({
       when: data.when,
@@ -24,7 +26,9 @@ class TaskUseCase {
     });
 
     if (task)
-      throw new ConflictError('Ops! Já existe uma tarefa agendada para este dia e horário. Por favor, escolha um momento diferente.');
+      throw new ConflictError(
+        'Ops! Já existe uma tarefa agendada para este dia e horário. Por favor, escolha um momento diferente.'
+      );
 
     await this.taskRepository.create(data);
   }
@@ -49,7 +53,9 @@ class TaskUseCase {
 
   async update(data: Omit<Task, 'done'>): Promise<void> {
     if (isPast(data.when))
-      throw new ConflictError('Por favor, selecione uma data e hora futuras para sua tarefa.');
+      throw new ConflictError(
+        'Por favor, selecione uma data e hora futuras para sua tarefa.'
+      );
 
     const task = await this.taskRepository.findWithoutId({
       id: data.id,
@@ -58,7 +64,9 @@ class TaskUseCase {
     });
 
     if (task)
-      throw new ConflictError('Ops! Já existe uma tarefa agendada para este dia e horário. Por favor, escolha um momento diferente.');
+      throw new ConflictError(
+        'Ops! Já existe uma tarefa agendada para este dia e horário. Por favor, escolha um momento diferente.'
+      );
 
     await this.taskRepository
       .update({
@@ -66,6 +74,7 @@ class TaskUseCase {
         description: data.description,
         title: data.title,
         when: data.when,
+        type: data.type,
       })
       .catch(() => {
         throw new NotFoundError(
@@ -76,7 +85,9 @@ class TaskUseCase {
 
   async done(data: Pick<Task, 'id' | 'done'>): Promise<void> {
     await this.taskRepository.done(data).catch(() => {
-      throw new NotFoundError('Desculpe, não conseguimos encontrar a tarefa que você está procurando. Verifique se o ID da tarefa está correto ou se ela ainda está disponível.');
+      throw new NotFoundError(
+        'Desculpe, não conseguimos encontrar a tarefa que você está procurando. Verifique se o ID da tarefa está correto ou se ela ainda está disponível.'
+      );
     });
   }
 
