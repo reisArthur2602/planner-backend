@@ -12,11 +12,12 @@ model User {
   email String @unique
   tasks Task[] @relation("UserTasks")
 
-  @@map("users") 
+  @@map("users")
 }
 
 model Task {
   id          String   @id @default(uuid())
+  type        String
   title       String
   description String
   done        Boolean  @default(false)
