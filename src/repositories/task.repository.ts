@@ -143,6 +143,7 @@ class TaskRepositoryPrisma implements ITaskRepository {
       orderBy: { when: 'asc' },
     });
   }
+  
   async getYear(data: Pick<Task, 'user_id'>): Promise<Task[] | []> {
     const current = new Date();
     return await db.task.findMany({

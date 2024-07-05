@@ -2,21 +2,20 @@ import { Router } from 'express';
 import { UserUseCase } from '../usecases/user.usecase';
 import { BadRequestError } from '../helpers/error';
 import { isAuthenticated } from '../middlewares/isAuthenticated';
+import { UserValidator } from '../helpers/validators/user.validator';
 
 export const UserRoutes = Router();
 const userUseCase = new UserUseCase();
 
 UserRoutes.post('/register', async (req, res) => {
-  const { email } = req.body;
-  if (!email) throw new BadRequestError('O email é obrigatório');
-  const user = await userUseCase.create({ email });
+  const body = UserValidator.parse(req.body);
+  const user = await userUseCase.create(body);
   return res.status(201).json(user);
 });
 
 UserRoutes.post('/session', async (req, res) => {
-  const { email } = req.body;
-  if (!email) throw new BadRequestError('O email é obrigatório');
-  const user = await userUseCase.auth({ email });
+  const body = UserValidator.parse(req.body);
+  const user = await userUseCase.auth(body);
   return res.json(user);
 });
 

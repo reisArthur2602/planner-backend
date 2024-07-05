@@ -3,29 +3,17 @@ import { TaskUseCase } from '../usecases/task.usecase';
 import { BadRequestError } from '../helpers/error';
 import { isAuthenticated } from '../middlewares/isAuthenticated';
 import { dateRegex } from '../utils/regex';
+import { TaskValidator } from '../helpers/validators/task.validator';
 
 export const TaskRoutes = Router();
 const taskUseCase = new TaskUseCase();
 
 TaskRoutes.post('/', isAuthenticated, async (req, res) => {
-  const { title, description, when } = req.body;
-
-  if (!title || !description || !when)
-    throw new BadRequestError('Preencha os dados corretamente');
-
-  if (!dateRegex.test(when))
-    throw new BadRequestError(
-      'Parece que a data inserida é inválida. Por favor, verifique e tente novamente.'
-    );
+  const body = TaskValidator.parse(req.body);
 
   const user_id = req.userId;
 
-  await taskUseCase.create({
-    title,
-    description,
-    when: new Date(when),
-    user_id,
-  });
+  await taskUseCase.create({ ...body, user_id });
 
   return res.status(201).send();
 });
@@ -53,11 +41,13 @@ TaskRoutes.get('/month', isAuthenticated, async (req, res) => {
   const task = await taskUseCase.getMonth({ user_id });
   return res.json(task);
 });
+
 TaskRoutes.get('/year', isAuthenticated, async (req, res) => {
   const user_id = req.userId;
   const task = await taskUseCase.getYear({ user_id });
   return res.json(task);
 });
+
 TaskRoutes.get('/late', isAuthenticated, async (req, res) => {
   const user_id = req.userId;
   const task = await taskUseCase.late({ user_id });
@@ -81,27 +71,13 @@ TaskRoutes.delete('/:id', isAuthenticated, async (req, res) => {
 });
 
 TaskRoutes.put('/:id', isAuthenticated, async (req, res) => {
+  
+  const body = TaskValidator.parse(req.body);
+
   const { id } = req.params;
-
-  const { title, description, when } = req.body;
-
-  if (!title || !description || !when)
-    throw new BadRequestError('Preencha os dados corretamente');
-
-  if (!dateRegex.test(when))
-    throw new BadRequestError(
-      'Parece que a data inserida é inválida. Por favor, verifique e tente novamente.'
-    );
-
   const user_id = req.userId;
 
-  await taskUseCase.update({
-    id,
-    title,
-    description,
-    when: new Date(when),
-    user_id,
-  });
+  await taskUseCase.update({ ...body, id, user_id });
 
   return res.status(200).send();
 });
