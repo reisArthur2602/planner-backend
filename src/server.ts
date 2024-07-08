@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import 'express-async-errors';
 import express from 'express';
+import cors from "cors"
 import { hasError } from './middlewares/hasError';
 import { UserRoutes } from './routes/user.routes';
 import { TaskRoutes } from './routes/task.routes';
@@ -8,6 +9,7 @@ import { TaskRoutes } from './routes/task.routes';
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 app.use('/user', UserRoutes);
 app.use('/task', TaskRoutes);
 app.use(hasError);
