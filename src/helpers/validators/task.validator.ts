@@ -8,6 +8,7 @@ export const TaskValidator = z.object({
       1,
       'Oops! Parece que você esqueceu de adicionar um título para a sua tarefa. Por favor, insira um título e tente novamente.'
     ),
+  done: z.coerce.boolean(),
   description: z
     .string()
     .min(

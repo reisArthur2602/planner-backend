@@ -55,11 +55,11 @@ class TaskRepositoryPrisma implements ITaskRepository {
     await db.task.delete({ where: { id: data.id } });
   }
 
-  async update(data: Omit<Task, 'done' | 'user_id'>): Promise<void> {
-    const { id, description, title, when, type } = data;
+  async update(data: Omit<Task, 'user_id'>): Promise<void> {
+    const { id, description, title, when, type, done } = data;
     await db.task.update({
       where: { id },
-      data: { description, title, when, type },
+      data: { description, title, when, type , done },
     });
   }
 

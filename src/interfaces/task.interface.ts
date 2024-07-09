@@ -33,7 +33,7 @@ export interface ITaskRepository {
     data: Pick<Task, 'when' | 'user_id' | 'id'>
   ): Promise<Pick<Task, 'id'> | null>;
   delete(data: Pick<Task, 'id'>): Promise<void>;
-  update(data: Omit<Task, 'done' | 'user_id'>): Promise<void>;
+  update(data: Omit<Task, 'user_id'>): Promise<void>;
   done(data: Pick<Task, 'id' | 'done'>): Promise<void>;
   getAll(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;
   getToday(data: Pick<Task, 'user_id'>): Promise<Task[] | []>;

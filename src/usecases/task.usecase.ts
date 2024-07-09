@@ -51,7 +51,7 @@ class TaskUseCase {
     });
   }
 
-  async update(data: Omit<Task, 'done'>): Promise<void> {
+  async update(data: Task): Promise<void> {
     if (isPast(data.when))
       throw new ConflictError(
         'Por favor, selecione uma data e hora futuras para sua tarefa.'
@@ -75,6 +75,7 @@ class TaskUseCase {
         title: data.title,
         when: data.when,
         type: data.type,
+        done: data.done,
       })
       .catch(() => {
         throw new NotFoundError(
