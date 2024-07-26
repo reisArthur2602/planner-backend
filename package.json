@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "engines": {
     "node": "20.14.0"
   },
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src",
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "import": "^0.0.6",
+    "tsup": "^8.2.3",
     "zod": "^3.23.8"
   }
 }
