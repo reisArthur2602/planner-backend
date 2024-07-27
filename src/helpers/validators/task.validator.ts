@@ -25,5 +25,5 @@ export const TaskValidator = z.object({
       (date) => dateRegex.test(date),
       'A data que você enviou não está em um formato válido. Por favor, certifique-se de enviar a data no formato correto (por exemplo, AAAA-MM-DDTHH:MM.sss) e tente novamente.'
     )
-    .transform((date) => new Date(date).toISOString()),
+    .transform((date) => new Date(date)),
 });
