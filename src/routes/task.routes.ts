@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { TaskUseCase } from '../usecases/task.usecase';
-import { BadRequestError } from '../helpers/error';
 import { isAuthenticated } from '../middlewares/isAuthenticated';
-import { dateRegex } from '../utils/regex';
+
 import { TaskValidator } from '../helpers/validators/task.validator';
 
 export const TaskRoutes = Router();

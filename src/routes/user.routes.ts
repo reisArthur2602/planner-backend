@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { UserUseCase } from '../usecases/user.usecase';
-import { BadRequestError } from '../helpers/error';
 import { isAuthenticated } from '../middlewares/isAuthenticated';
 import { UserValidator } from '../helpers/validators/user.validator';
 

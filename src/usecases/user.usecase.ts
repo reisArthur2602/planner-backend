@@ -1,7 +1,6 @@
 import {
   ConflictError,
   NotFoundError,
-  UnauthorizedError,
 } from '../helpers/error';
 import {
   IUserRepository,

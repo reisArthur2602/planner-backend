@@ -2,7 +2,6 @@ import {
   ITaskRepository,
   Task,
   TaskCreate,
-  UpdateTask,
 } from '../interfaces/task.interface';
 import { TaskRepositoryPrisma } from '../repositories/task.repository';
 import { isPast } from 'date-fns';

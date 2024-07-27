@@ -1,4 +1,4 @@
-import { ZodNull, ZodNullable, z } from 'zod';
+import { z } from 'zod';
 
 export const UserValidator = z.object({
   email: z
