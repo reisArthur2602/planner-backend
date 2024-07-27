@@ -14,6 +14,7 @@ class TaskUseCase {
   private taskRepository: ITaskRepository;
 
   async create(data: TaskCreate): Promise<void> {
+
     if (isPast(data.when))
       throw new ConflictError(
         'Por favor, selecione uma data e hora futuras para sua tarefa.'
@@ -30,7 +31,7 @@ class TaskUseCase {
       );
 
     await this.taskRepository.create(data);
-  }
+  } 
 
   async find(data: Pick<Task, 'id'>): Promise<Task> {
     const task = await this.taskRepository.findById(data);
