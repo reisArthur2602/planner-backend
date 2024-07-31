@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/banner - planner 2x.jpg" alt="Logo" />
+  <img src="https://github.com/reisArthur2602/planner-frontend/blob/main/src/assets/banner%20-%20planner%202x.jpg?raw=true" alt="Logo" />
 </p>
 
 <h1 align="center"> Planner - Api</h1>
