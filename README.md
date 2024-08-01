@@ -25,7 +25,7 @@
 
 - **POST /user/register**: Criar uma conta
 - **POST /user/session**: Logar uma conta
-- **POST /user/me**: Buscar detalhes do usuário
+- **GET /user/me**: Buscar detalhes do usuário
 
 <br/>
 
