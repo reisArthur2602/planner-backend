@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(cors())
 app.use('/user', UserRoutes);
 app.use('/task', TaskRoutes);
+
 app.use(hasError);
 
 app.listen(process.env.PORT, () =>
